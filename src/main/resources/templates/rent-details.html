@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head::head}"></head>
+
+<body>
+
+<div th:replace="~{fragments/navbar::navbar}"></div>
+
+<div class="container-fluid">
+    <h2 class="text-center text-white mt-5">Наеми</h2>
+    <div class="offers row mx-auto d-flex flex-row justify-content-center" th:object="${offer}">
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+
+            <div class="card-body pb-1">
+                <h5 class="card-title"  th:text="*{offerSummary()}">
+                Offer Summary</h5>
+            </div>
+            <ul class="offer-details list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="card-text"><span>• Дата на производство: <th:block th:text="*{year}"></th:block></span>
+                    </div>
+                    <div class="card-text"><span>• Пробег: <th:block th:text="*{mileage}"></th:block></span></div>
+                    <div class="card-text"><span>• Цена: <th:block th:text="*{price}"></th:block></span></div>
+                    <div class="card-text"><span>• Двигател: <th:block th:text="*{engine}"></th:block></span></div>
+                    <div class="card-text"><span>• Скоростна кутия: <th:block
+                            th:text="*{transmission}"></th:block></span></div>
+                    <div class="card-text"><span>• Описание: <th:block th:text="*{description}"></th:block></span>
+                    </div>
+                    <div class="card-text"><span>• Продавач: <th:block th:text="*{sellerFullName}"></th:block></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+            <img th:src="*{imageUrl}" class="card-img-top" alt="Car image">
+        </div>
+    </div>
+</div>
+<div class="container">
+    
+    <form
+            th:action="@{/rent/add}"
+            th:method="post"
+            th:object="${rent}"
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <input type="hidden"
+        th:id="offerId"
+        th:name="offerId"
+        th:value="${offerId}"/>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="startDate" class="text-white font-weight-bold">Дата на наемане</label>
+                <input
+                        id="startDate"
+                        name="startDate"
+                        th:value="*{startDate}"
+                        th:errorclass="is-invalid"
+                        type="date"
+                        class="form-control"
+                        placeholder="Дата на наемане"/>
+                <div class="invalid-feedback errors alert alert-danger">
+                    <div th:each="err: ${#fields.errors('startDate')}"
+                         th:text="${err}"></div>
+                </div>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="endDate" class="text-white font-weight-bold">Дата на връщане</label>
+                <input
+                        id="endDate"
+                        name="endDate"
+                        th:value="*{endDate}"
+                        th:errorclass="is-invalid"
+                        type="date"
+                        class="form-control"
+                        placeholder="Дата на връщане"/>
+                <div class="invalid-feedback errors alert alert-danger">
+                    <div th:each="err: ${#fields.errors('endDate')}"
+                         th:text="${err}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Наеми"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <footer></footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head::head}"></head>
+
+<body>
+
+<div th:replace="~{fragments/navbar::navbar}"></div>
+
+<h2 class="text-center text-white">Потребители</h2>
+<div class="container">
+    <div th:each="user : ${allUsers}" style="margin-bottom: 10px">
+        <form
+                th:action="@{/admin/user-management/{id}(id=*{user.id})}"
+                th:method="post"
+                class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+            <div>
+                <span class="text-white font-weight-bold" style="margin-right: 10px">Потребител:</span>
+                <br/>
+                <p class="text-white font-weight-bold" th:text="*{user.getDescription()}"></p>
+                <div class="col col-md-4">
+                    <div class="button-holder d-flex">
+                        <input type="submit" class="btn btn-info btn-lg" th:classappend="${user.getId().equals(#authentication.principal.id) ? 'disabled' : ''}" value="Изтрий"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <footer></footer>
+</div>
+
+</body>
+</html>

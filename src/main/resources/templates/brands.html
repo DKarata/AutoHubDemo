@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head::head}"></head>
+
+<body>
+
+<div th:replace="~{fragments/navbar::navbar}"></div>
+
+<div class="container">
+    <h2 class="text-center text-white m-3">Всички автомобили</h2>
+    <div class='row mb-4 d-flex justify-content-around'>
+        <div
+                th:each="brand : ${allBrands}"
+                class="brand-section col-md-5 mr-auto d-flex flex-column m-1">
+            <h2>Марка:
+                <span th:text="*{brand.name}">Brand name</span>
+            </h2>
+            <div
+                    th:each="model : ${brand.models}"
+                    th:object="${model}"
+            >Модел:
+                <table>
+                    <tr>
+                        <th>Име</th>
+                        <th>Тип</th>
+                        <th>Година</th>
+                        <th>до</th>
+                        <th>Година</th>
+                        <th>Снимка</th>
+                    </tr>
+                    <tr>
+                        <th><th:block th:text="*{name}"></th:block></th>
+                        <th><th:block th:text="*{category}"></th:block></th>
+                        <th><th:block th:text="*{startYear}"></th:block></th>
+                        <th></th>
+                        <th><th:block th:text="*{endYear}"></th:block></th>
+                        <th><img alt="image" th:src="*{imageUrl}"
+                                 class="img-thumbnail rounded"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <footer></footer>
+    </div>
+</div>
+</body>
+</html>

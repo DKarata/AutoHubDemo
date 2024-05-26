@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head::head}"></head>
+
+<body>
+
+<div th:replace="~{fragments/navbar::navbar}"></div>
+
+<div class="container">
+    <h2 class="text-center text-white">Логин</h2>
+    <form
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
+            th:action="@{/users/login}"
+            th:method="post">
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="username">Имейл</label>
+            <input
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    placeholder="Имейл"
+                    th:value="${username}"
+                    type="text"/>
+        </div>
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="password">Парола</label>
+            <input
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Парола"
+                    type="password"/>
+
+        </div>
+
+        <p class="errors alert alert-danger" th:if="${bad_credentials}">
+            Грешно име или парола.
+        </p>
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input class="btn btn-info btn-lg" type="submit" value="Логин"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <footer></footer>
+</div>
+</body>
+</html>
